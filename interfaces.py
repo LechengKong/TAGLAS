@@ -41,6 +41,7 @@ DATASET_TO_CLASS_DICT = {
     "mag240m": MAG240M,
     "ultrachat200k": UltraChat200k,
     "wikikg90m": WikiKG90M,
+    "webqsp": WebQSP,
 }
 
 DATASET_INFOR_DICT = {
@@ -103,15 +104,15 @@ DATASET_INFOR_DICT = {
                              "QA": ("text_accuracy", {"metric_name": "text_accuracy"})},
               },
     "arxiv_link": {"dataset": "arxiv",
-                    "task": {"default": DefaultLPTask,
-                             "subgraph": SubgraphLPTask,
-                             "default_text": DefaultTextLPTask,
-                             "subgraph_text": SubgraphTextLPTask,
-                             "QA": LQATask},
-                    "evaluation": {"default": ("accuracy", {"metric_name": "accuracy", "num_classes": 2}),
-                                   "QA": ("text_accuracy", {"metric_name": "text_accuracy", "mode": "re",
-                                                          "regular_patterns": r"\b(Yes|yes|No|no)\b"})},
-                    },
+                   "task": {"default": DefaultLPTask,
+                            "subgraph": SubgraphLPTask,
+                            "default_text": DefaultTextLPTask,
+                            "subgraph_text": SubgraphTextLPTask,
+                            "QA": LQATask},
+                   "evaluation": {"default": ("accuracy", {"metric_name": "accuracy", "num_classes": 2}),
+                                  "QA": ("text_accuracy", {"metric_name": "text_accuracy", "mode": "re",
+                                                           "regular_patterns": r"\b(Yes|yes|No|no)\b"})},
+                   },
     "fb15k237": {"dataset": "fb15k237",
                  "task": {"default": DefaultLPTask,
                           "subgraph": SubgraphLPTask,
@@ -292,6 +293,10 @@ DATASET_INFOR_DICT = {
                  "evaluation": {"default": ("accuracy", {"metric_name": "accuracy", "num_classes": 1387}),
                                 "QA": ("text_accuracy", {"metric_name": "text_accuracy"})},
                  },
+    "webqsp": {"dataset": "webqsp",
+                    "task": {"QA": GQATask},
+                    "evaluation": {"QA": ("text_accuracy", {"metric_name": "text_accuracy", "mode": "search"})},
+                    },
 }
 
 
