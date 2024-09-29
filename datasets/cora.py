@@ -31,7 +31,7 @@ class Cora(TAGDataset):
                  ) -> None:
         super().__init__(name, root, transform, pre_transform, pre_filter, **kwargs)
         # Generate random split for link prediction.
-        self.side_data.link_split, self.side_data.keep_edges = generate_link_split(self._data.edge_index)
+        self.side_data.link_split, self.side_data.keep_edges = generate_link_split(self._data.edge_index, train_ratio= 0.6, test_ratio = 0.2)
 
     def raw_file_names(self) -> list:
         return ["cora.pt", "cora_node.json"]
@@ -139,7 +139,7 @@ class Cora(TAGDataset):
             label_map (list): Mapping to the label for all samples. Will use it to generate answer and question.
             **kwargs: Other arguments.
         """
-        q_list = ["Is two papers co-cited or not? Please answer yes if two papers are co-cited and no otherwise."]
+        q_list = ["Is two papers co-cited or not? Please answer yes if two papers are co-cited and no if two papers are not co-cited."]
         answer_list = []
         label_features = self.label
         for l in label_map:
