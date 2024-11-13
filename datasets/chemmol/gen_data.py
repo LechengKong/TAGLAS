@@ -107,6 +107,7 @@ def get_raw_dataset(name, raw_dir):
             graph["label_map"] = label_map
             graph["question_map"] = question_map
             graph["split"] = split[i]
+            graph["smiles"] = mol[i]
             graphs.append(graph)
 
         processed_label_texts = np.array(processed_label_texts, dtype=object)
@@ -158,6 +159,7 @@ def get_raw_dataset(name, raw_dir):
                 graph["label_map"] = cur_label
                 graph["cum_label_map"] = cur_label
                 graph["split"] = split[i]
+                graph["smiles"] = mol[i]
                 graphs.append(graph)
         else:
             num_tasks = len(task2index)
@@ -175,6 +177,7 @@ def get_raw_dataset(name, raw_dir):
                 cum_label_map[task_lst] = cum_label_map[task_lst] + cum[task_lst]
                 graph["cum_label_map"] = cum_label_map
                 graph["split"] = split[i]
+                graph["smiles"] = mol[i]
                 graphs.append(graph)
     return graphs, return_label_texts, question_texts
 
@@ -208,7 +211,8 @@ def gen_graph(graphs, name):
                         edge_map=torch.tensor(cur_et_id, dtype=torch.long),
                         edge_index=torch.tensor(g["edge_list"], dtype=torch.long).T,
                         label_map=g["label_map"].unsqueeze(0),
-                        question_map=g["question_map"].unsqueeze(0)
+                        question_map=g["question_map"].unsqueeze(0),
+                        smiles=g["smiles"],
                         )
             )
         else:
@@ -218,6 +222,7 @@ def gen_graph(graphs, name):
                         edge_index=torch.tensor(g["edge_list"], dtype=torch.long).T,
                         label_map=torch.tensor(g["label_map"]).long().unsqueeze(0),
                         cum_label_map=torch.tensor(g["cum_label_map"]).long().unsqueeze(0),
+                        smiles=g["smiles"],
                         )
             )
         split[g["split"]].append(i)
