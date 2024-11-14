@@ -31,7 +31,7 @@ class Cora(TAGDataset):
                  ) -> None:
         super().__init__(name, root, transform, pre_transform, pre_filter, **kwargs)
         # Generate random split for link prediction.
-        self.side_data.link_split, self.side_data.keep_edges = generate_link_split(self._data.edge_index, train_ratio= 0.6, test_ratio = 0.2)
+        self.side_data.link_split, self.side_data.keep_edges = generate_link_split(self._data.edge_index)
 
     def raw_file_names(self) -> list:
         return ["cora.pt", "cora_node.json"]
