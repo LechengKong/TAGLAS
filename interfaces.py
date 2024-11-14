@@ -42,6 +42,7 @@ DATASET_TO_CLASS_DICT = {
     "ultrachat200k": UltraChat200k,
     "wikikg90m": WikiKG90M,
     "webqsp": WebQSP,
+    "protein_hs": ProteinHS,
 }
 
 DATASET_INFOR_DICT = {
@@ -57,6 +58,16 @@ DATASET_INFOR_DICT = {
                                  "QA": ("text_accuracy",  {"metric_name": "text_accuracy"})},
                   },
     "cora_link": {"dataset": "cora",
+                  "task": {"default": DefaultLPTask,
+                           "subgraph": SubgraphLPTask,
+                           "default_text": DefaultTextLPTask,
+                           "subgraph_text": SubgraphTextLPTask,
+                           "QA": LQATask},
+                  "evaluation": {"default": ("accuracy", {"metric_name": "accuracy", "num_classes": 2}),
+                                 "QA": ("text_accuracy", {"metric_name": "text_accuracy", "mode": "re",
+                                                          "regular_patterns": r"\b(Yes|yes|No|no)\b"})},
+                  },
+    "protein_hs": {"dataset": "protein_hs",
                   "task": {"default": DefaultLPTask,
                            "subgraph": SubgraphLPTask,
                            "default_text": DefaultTextLPTask,
